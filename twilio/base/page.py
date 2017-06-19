@@ -1,5 +1,6 @@
 import json
 
+from twilio.compat import string_compat
 from twilio.base.exceptions import TwilioException
 
 
@@ -58,7 +59,7 @@ class Page(object):
         if response.status_code != 200:
             raise TwilioException('Unable to fetch page', response)
 
-        return json.loads(response.content)
+        return json.loads(string_compat(response.content))
 
     def load_page(self, payload):
         """

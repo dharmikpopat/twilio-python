@@ -1,3 +1,5 @@
+import six
+
 # Those are not supported by the six library and needs to be done manually
 try:
     # python 3
@@ -15,3 +17,13 @@ try:
 except ImportError:
     # python 3
     izip = zip
+
+
+def string_compat(s):
+    if isinstance(s, six.binary_type):
+        if (six.PY2):
+            # s is `str` in Python 2
+            return s
+        elif (six.PY3):
+            # s is `bytes` in Python 3
+            return s.decode('utf-8')

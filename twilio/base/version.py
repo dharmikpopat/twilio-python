@@ -1,6 +1,7 @@
 import json
 from math import ceil
 
+from twilio.compat import string_compat
 from twilio.base import values
 from twilio.base.exceptions import TwilioRestException
 
@@ -81,7 +82,7 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, 'Unable to fetch record')
 
-        return json.loads(response.content)
+        return json.loads(string_compat(response.content))
 
     def update(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
@@ -102,7 +103,7 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, 'Unable to update record')
 
-        return json.loads(response.content)
+        return json.loads(string_compat(response.content))
 
     def delete(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
@@ -208,5 +209,4 @@ class Version(object):
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, 'Unable to create record')
 
-        return json.loads(response.content)
-
+        return json.loads(string_compat(response.content))

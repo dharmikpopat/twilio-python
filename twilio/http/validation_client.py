@@ -2,7 +2,7 @@ from collections import namedtuple
 
 from requests import Request, Session
 
-from twilio.compat import urlparse
+from twilio.compat import urlparse, string_compat
 from twilio.http import HttpClient, get_cert_file
 from twilio.http.response import Response
 from twilio.jwt.validation import ClientValidationJwt
@@ -69,7 +69,7 @@ class ValidationClient(HttpClient):
             timeout=timeout,
         )
 
-        return Response(int(response.status_code), response.content)
+        return Response(int(response.status_code), string_compat(response.content))
 
     def _build_validation_payload(self, request):
         """
